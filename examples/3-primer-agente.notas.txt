@@ -1,0 +1,7 @@
+
+limpiar: qué cambió:
+- Quité la comparación tajante entre chat y agente y centré la introducción en lo que hará este ejercicio.
+- Expliqué «skill» donde aparece y conservé intactos el código, las etiquetas HTML y el enlace.
+- Queda por verificar la disponibilidad de Claude Code según el plan, la ubicación de los controles y la afirmación sobre el acceso a archivos desde **Chat**.
+- La afirmación de que Claude solo puede acceder a la carpeta elegida requiere comprobación: seleccionar una carpeta no demuestra por sí solo ese límite de permisos.
+- Este fragmento no muestra cómo se cargan las reglas, se generan los borradores ni se establece la autorización antes de enviar. Tampoco permite comprobar que el prompt descargable pregunte los datos, como anuncia el enlace.

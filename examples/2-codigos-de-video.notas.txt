@@ -1,0 +1,7 @@
+
+limpiar: qué cambió:
+- El comienzo explica qué se descarga y cómo se usa. La lista distingue entre tener los códigos instalados y aplicar cada edición.
+- Cambié «color de cine» por «ajustar el color» para describir la tarea sin prometer un acabado impreciso.
+- Antes de publicar, conviene comprobar los planes que incluyen **Code**, los nombres y posiciones de sus controles y si admite adjuntar el ZIP como se indica.
+- La afirmación de que **Chat** no ve archivos de la computadora es absoluta y necesita comprobación. La conservé para no cambiar la instrucción técnica sin respaldo.
+- Se mantiene explícito que el funcionamiento en Windows todavía no está comprobado.

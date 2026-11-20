@@ -1,0 +1,52 @@
+nombre	formato	region	licencia	revision	url
+readme-01	readme	latam	MIT	2020-04-30	https://github.com/kodetop/docker-php-mysql/blob/b56c1cba07c7a7bbfbcd10b053bd4de9dc069240/README.md
+readme-02	readme	espana	MIT	2021-12-19	https://github.com/jmrplens/TFG-TFM_EPS/blob/3d1ec4835abbd2f04d08c422e253d4e259508d07/README.md
+readme-03	readme	latam	MIT	2021-06-16	https://github.com/atscub/nautapy/blob/712a5fea439202f06693654dc664e9e30a3cf751/README.md
+readme-04	readme	latam	MIT	2020-01-23	https://github.com/NatanVilchis/termuxpy/blob/9c5c257bb0d3ba9210a495800cda857db5505a9e/README.md
+readme-05	readme	latam	MIT	2018-10-29	https://github.com/Developero-oficial/php-mvc/blob/bf8dd27a2fb161b6cbf14645117a73dfb241e7a7/README.md
+readme-06	readme	latam	MIT	2017-08-14	https://github.com/leoasis/workshop-pensando-en-react/blob/153708306344980b03187a2269ad4037b002e5a4/README.md
+readme-07	readme	latam	MIT	2020-03-27	https://github.com/brunocascio/docker-espanol/blob/18ddf236f0defe24bb95e700c708010a395d0983/README.md
+readme-08	readme	latam	MIT	2021-08-06	https://github.com/lecano/php-numero-a-letras/blob/872c0f7fd453f6070e523ff61ee368def48be08b/README.md
+readme-09	readme	latam	MIT	2021-05-15	https://github.com/parzibyte/cotizaciones_web/blob/8a923f51188b01d1cc6205ca4767d973a2271a43/README.md
+readme-10	readme	espana	MIT	2020-12-28	https://github.com/joanby/python-ml-course/blob/068462a07db9d0a584ea9ceee8fdb10f3f3233c1/README.md
+noticia-latam-01	noticia	latam	CC BY 2.5	2014-11-11	https://es.wikinews.org/w/index.php?oldid=419759
+noticia-latam-02	noticia	latam	CC BY 2.5	2018-07-21	https://es.wikinews.org/w/index.php?oldid=610446
+noticia-latam-03	noticia	latam	CC BY 2.5	2013-07-27	https://es.wikinews.org/w/index.php?oldid=343506
+noticia-latam-04	noticia	latam	CC BY 2.5	2018-07-21	https://es.wikinews.org/w/index.php?oldid=610152
+noticia-latam-05	noticia	latam	CC BY 2.5	2021-04-06	https://es.wikinews.org/w/index.php?oldid=689514
+noticia-latam-06	noticia	latam	CC BY 2.5	2013-07-27	https://es.wikinews.org/w/index.php?oldid=343545
+noticia-latam-07	noticia	latam	CC BY 2.5	2014-11-11	https://es.wikinews.org/w/index.php?oldid=419681
+noticia-espana-01	noticia	espana	CC BY 2.5	2018-07-21	https://es.wikinews.org/w/index.php?oldid=610801
+noticia-espana-02	noticia	espana	CC BY 2.5	2013-07-27	https://es.wikinews.org/w/index.php?oldid=343559
+noticia-espana-03	noticia	espana	CC BY 2.5	2013-07-27	https://es.wikinews.org/w/index.php?oldid=343578
+noticia-espana-04	noticia	espana	CC BY 2.5	2018-07-21	https://es.wikinews.org/w/index.php?oldid=612178
+noticia-espana-05	noticia	espana	CC BY 2.5	2013-07-27	https://es.wikinews.org/w/index.php?oldid=343834
+noticia-espana-07	noticia	espana	CC BY 2.5	2018-07-20	https://es.wikinews.org/w/index.php?oldid=608878
+tutorial-01	tutorial	mixta	CC BY-SA 3.0	2015-03-19	https://es.wikibooks.org/w/index.php?oldid=255906
+tutorial-02	tutorial	mixta	CC BY-SA 3.0	2013-03-22	https://es.wikibooks.org/w/index.php?oldid=199677
+tutorial-04	tutorial	mixta	CC BY-SA 3.0	2020-08-17	https://es.wikibooks.org/w/index.php?oldid=386264
+tutorial-05	tutorial	mixta	CC BY-SA 3.0	2015-03-06	https://es.wikibooks.org/w/index.php?oldid=246158
+tutorial-06	tutorial	mixta	CC BY-SA 3.0	2009-09-04	https://es.wikibooks.org/w/index.php?oldid=129679
+viaje-latam-01	guia-viaje	latam	CC BY-SA 3.0	2021-10-31	https://es.wikivoyage.org/w/index.php?oldid=182560
+viaje-latam-02	guia-viaje	latam	CC BY-SA 3.0	2021-07-21	https://es.wikivoyage.org/w/index.php?oldid=177988
+viaje-latam-03	guia-viaje	latam	CC BY-SA 3.0	2021-11-20	https://es.wikivoyage.org/w/index.php?oldid=184517
+viaje-latam-04	guia-viaje	latam	CC BY-SA 3.0	2021-09-30	https://es.wikivoyage.org/w/index.php?oldid=181972
+viaje-latam-05	guia-viaje	latam	CC BY-SA 3.0	2021-07-20	https://es.wikivoyage.org/w/index.php?oldid=176904
+viaje-latam-06	guia-viaje	latam	CC BY-SA 3.0	2021-09-15	https://es.wikivoyage.org/w/index.php?oldid=181728
+viaje-latam-07	guia-viaje	latam	CC BY-SA 3.0	2021-08-10	https://es.wikivoyage.org/w/index.php?oldid=180942
+viaje-espana-01	guia-viaje	espana	CC BY-SA 3.0	2021-07-21	https://es.wikivoyage.org/w/index.php?oldid=178048
+viaje-espana-02	guia-viaje	espana	CC BY-SA 3.0	2021-07-20	https://es.wikivoyage.org/w/index.php?oldid=176512
+viaje-espana-03	guia-viaje	espana	CC BY-SA 3.0	2021-07-21	https://es.wikivoyage.org/w/index.php?oldid=178989
+viaje-espana-04	guia-viaje	espana	CC BY-SA 3.0	2021-11-10	https://es.wikivoyage.org/w/index.php?oldid=182956
+viaje-espana-05	guia-viaje	espana	CC BY-SA 3.0	2021-07-24	https://es.wikivoyage.org/w/index.php?oldid=179736
+viaje-espana-06	guia-viaje	espana	CC BY-SA 3.0	2021-07-21	https://es.wikivoyage.org/w/index.php?oldid=179024
+viaje-espana-07	guia-viaje	espana	CC BY-SA 3.0	2021-07-30	https://es.wikivoyage.org/w/index.php?oldid=180659
+noticia-latam-08	noticia	latam	CC BY 2.5	2013-08-17	https://es.wikinews.org/w/index.php?oldid=352919
+noticia-latam-09	noticia	latam	CC BY 2.5	2013-08-17	https://es.wikinews.org/w/index.php?oldid=350077
+noticia-latam-10	noticia	latam	CC BY 2.5	2013-08-17	https://es.wikinews.org/w/index.php?oldid=350009
+noticia-latam-11	noticia	latam	CC BY 2.5	2018-07-18	https://es.wikinews.org/w/index.php?oldid=607915
+noticia-latam-12	noticia	latam	CC BY 2.5	2018-07-18	https://es.wikinews.org/w/index.php?oldid=607857
+noticia-latam-13	noticia	latam	CC BY 2.5	2018-07-18	https://es.wikinews.org/w/index.php?oldid=607859
+noticia-latam-14	noticia	latam	CC BY 2.5	2018-07-19	https://es.wikinews.org/w/index.php?oldid=608125
+noticia-latam-15	noticia	latam	CC BY 2.5	2013-08-18	https://es.wikinews.org/w/index.php?oldid=354593
+noticia-latam-18	noticia	latam	CC BY 2.5	2018-07-18	https://es.wikinews.org/w/index.php?oldid=607910

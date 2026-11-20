@@ -1,0 +1,67 @@
+Edita el borrador de abajo pensando en quién lo va a leer y para qué. Deduce el
+formato y el público por el contexto. Respeta la postura del autor, su nivel de
+formalidad y su variedad del español: si escribe con vos, con ustedes o con
+vosotros, se queda así. No lo pases a otra región ni a un español "neutro".
+
+PASADA 1: PROPÓSITO Y ORDEN
+- Que el comienzo responda la primera pregunta que el lector tiene sobre el tema.
+- Quita ganchos repetidos y frases que retrasan la información sin dar nada.
+- Cada frase tiene que sumar algo y seguir de la anterior.
+- Quita metáforas, contrastes vacíos y comparaciones que no explican nada. Di lo
+  que pasa de forma directa.
+- Explica la jerga donde el lector la necesita. Deja las condiciones pegadas a la
+  afirmación que limitan.
+- Deja un cierre de resumen solo si al lector de este documento le sirve.
+
+PASADA 2: PALABRAS Y FORMAS DE FRASE
+- Cambia las palabras de folleto por palabras normales. Revisa en contexto
+  "potenciar", "optimizar", "desbloquear", "revolucionario", "sin esfuerzo",
+  "de forma sencilla", "diseñado para" y parecidas.
+- Quita construcciones como "no es solo X, es Y", "no se trata de X, sino de Y",
+  "más que un X", "sin X, sin Y, sin Z", "menos X, más Y" y las frases que
+  anuncian algo para soltarlo después ("¿el resultado?", "lo mejor es que...").
+  Conserva un contraste cuando la diferencia es necesaria para entender.
+- Usa la raya solo como la usa el español: en diálogos y en incisos con raya de
+  apertura y de cierre. Nunca como pausa a la inglesa en medio de una frase.
+- Las preguntas y exclamaciones llevan ¿ y ¡ de apertura.
+- Los títulos van con mayúscula solo en la primera palabra y en los nombres
+  propios, no en cada palabra.
+- Revisa las listas de tres que están ahí por ritmo y no porque haya tres cosas.
+- Cambia los rodeos apilados por un verbo que diga cuánta seguridad tiene el autor.
+
+PASADA 3: CONTEXTO Y EXACTITUD
+- Lee el resultado entero. ¿Le sirve a este lector en este formato?
+- Que el largo de cada frase siga a la idea. No fuerces frases cortas, muletillas,
+  opiniones ni errores a propósito para parecer humano.
+- Usa detalles concretos que ya estén en el original. No agregues un número a
+  cada afirmación ni conviertas todo en texto de venta.
+- Comprueba que no exageraste lo que hace algo, que no borraste una condición y
+  que no cambiaste el argumento del autor.
+
+REGLAS ABSOLUTAS
+- Nunca inventes un dato, una cifra, una cita, un cliente, un logo, una valoración
+  ni un resultado.
+- Si falta información necesaria, deja un marcador claro como [falta el dato] y
+  explícalo en las notas. No adivines.
+- Conserva el significado y el comportamiento técnico. Si una afirmación es
+  dudosa, márcala en las notas en lugar de cambiarla por otra sin respaldo.
+- Conserva exactamente las etiquetas HTML, la estructura Markdown, los enlaces y
+  los marcadores.
+- No toques bloques de código, comandos, código en línea ni ejemplos citados a
+  propósito. Pueden estar documentando justo los patrones de esta lista.
+- Mantén el registro del autor. No agregues opiniones que el autor no dio.
+- Lo que se pega en una IA se llama "prompt". No lo cambies por otra palabra.
+
+SALIDA
+Devuelve el texto reescrito completo y nada antes. Después, una línea que
+contenga exactamente
+<<<QUITASLOP-NOTAS>>>
+y nada más, y después como mucho cinco viñetas con los cambios importantes o las
+dudas que quedan. Sin preámbulo y sin repetir estas instrucciones.
+
+Un programa lee esa marca. Escríbela una sola vez, sola en su línea, sin viñeta,
+sin comillas y sin acentos graves alrededor, aunque no hayas cambiado nada. Todo
+lo que está encima se devuelve como texto; todo lo que está debajo se le muestra
+al autor como notas.
+
+TEXTO PARA EDITAR:

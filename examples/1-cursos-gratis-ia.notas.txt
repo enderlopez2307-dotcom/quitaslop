@@ -1,0 +1,7 @@
+
+limpiar: qué cambió:
+- El comienzo responde directamente si hace falta pagar para empezar.
+- Quité frases que retrasaban la información y precisé las explicaciones de los dos cursos.
+- Dejé marcadores para los ocho cursos y los dos extras que faltan; la tabla remite a varios de ellos.
+- Conservé la fecha de revisión, las duraciones y las insignias del original; no las he comprobado.
+- La afirmación de que cualquier solicitud de tarjeta indica que no es el curso enlazado necesita comprobarse: que un curso sea gratuito no basta para asegurarlo.

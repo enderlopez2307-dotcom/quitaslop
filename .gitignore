@@ -1,0 +1,6 @@
+# Textos de otras personas: se descargan con corpus/scripts/, no se suben.
+corpus/humano/
+corpus/scripts/*.log
+__pycache__/
+.DS_Store
+/corpus/humano-control/

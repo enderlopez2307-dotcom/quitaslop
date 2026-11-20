@@ -70,4 +70,22 @@ case "$out" in *'Borrador de prueba.'*) check 'sin CLI imprime el prompt con el 
 case "$out" in *'<<<QUITASLOP-NOTAS>>>'*) check 'el prompt impreso pide el marcador' 0;; *) check 'el prompt impreso pide el marcador' 1;; esac
 rm -rf "$sinCLI"
 
+# ── el modelo que limpia trabaja sin herramientas ───────────────────────────
+# Un borrador puede traer instrucciones escondidas para el modelo. Estas marcas en el
+# script son lo que impide que las cumpla; si alguien las borra, esta prueba falla.
+S="$HERE/limpiar.sh"
+grep -q -- '--tools ""' "$S"; check 'claude corre sin herramientas' $?
+grep -q -- '--strict-mcp-config' "$S"; check 'claude corre sin servidores MCP' $?
+grep -q -- '--setting-sources ""' "$S"; check 'claude corre sin la configuración del usuario' $?
+grep -q -- '--ignore-user-config' "$S"; check 'codex corre sin la configuración del usuario' $?
+grep -q -- '--sandbox read-only' "$S"; check 'codex corre en modo solo lectura' $?
+# Solo cuenta la lista que se apaga de verdad (el bloque "for f in ... do"), no los comentarios.
+OFFLIST=" $(sed -n '/^for f in /,/; do$/p' "$S" | tr -d '\\;' | tr -s '[:space:]' ' ') "
+for f in apps shell_tool unified_exec code_mode_host multi_agent plugins browser_use computer_use; do
+  case "$OFFLIST" in *" $f "*) check "codex sin la función $f" 0;; *) check "codex sin la función $f" 1;; esac
+done
+grep -q 'web_search="disabled"' "$S"; check 'codex sin búsqueda web' $?
+grep -q '<"$PROMPT_TMP"' "$S"; check 'el prompt va por la entrada estándar, no como argumento' $?
+grep -q 'cd "$SAFE_DIR"' "$S"; check 'el modelo corre en una carpeta vacía' $?
+
 [ "$fail" = "0" ] && echo "todas las pruebas de limpiar pasaron" || { echo "las pruebas de limpiar FALLARON"; exit 1; }

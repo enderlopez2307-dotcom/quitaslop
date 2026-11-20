@@ -90,7 +90,10 @@ DESLOP_WRITER=claude tools/limpiar.sh borrador.md > limpio.md 2> notas.txt
 
 Mira el código de salida. Un tiempo agotado devuelve 124. Sin la CLI de la otra
 familia devuelve 127 e imprime el prompt con el borrador, y eso no es un texto editado.
-Un borrador vacío o ilegible devuelve 66.
+Un borrador vacío o ilegible devuelve 66 y una respuesta vacía del modelo, 70. El modelo de
+la segunda pasada corre sin herramientas, sin servidores MCP y en una carpeta vacía, así
+que un borrador con instrucciones escondidas no puede usarlo para leer archivos ni
+mandar nada. No le quites esas opciones al script.
 
 El modelo separa sus notas con `<<<QUITASLOP-NOTAS>>>`. Si aparece un aviso de que
 falta esa marca, puede que las notas se hayan colado en el texto. Revísalo.

@@ -262,6 +262,30 @@ with tempfile.TemporaryDirectory() as d:
     check('lee UTF-8 aunque la consola sea cp1252', r.returncode == 0 and b'Traceback' not in r.stderr,
           r.stderr.decode('utf-8', 'replace'))
 
+r = corre('--allow-proof')
+check('solo una opción, sin archivo, no da una traza', r.returncode != 0 and 'Traceback' not in r.stderr, r.stderr[-300:])
+
+# ── Entradas hechas para colgar el checker ──────────────────────────────────
+# Un archivo con miles de aperturas sin cerrar tardaba más de 10 segundos con las
+# regex perezosas. Cada caso tiene que terminar en menos de 2 segundos.
+import time  # noqa: E402
+LENTOS = {
+    'comentarios sin cerrar': '<!--' * 20000,
+    'scripts sin cerrar': '<script>' * 20000,
+    'enlaces sin cerrar': '[' * 30000 + '](' * 30000,
+    'etiquetas en negrita': ('**x** ' * 5000 + '\n') * 20,
+    'títulos en Mayúscula': ('## ' + 'Con ' * 2000 + '\n') * 50,
+}
+for nombre, v in LENTOS.items():
+    t0 = time.time()
+    D.audit(D.markdown_prose(v), v)
+    D.audit(D.visible_text(v), v)
+    check(f'rápido con {nombre}', time.time() - t0 < 2, f'{time.time() - t0:.1f}s')
+check('comentario sin cerrar oculta el resto, como un navegador',
+      D.visible_text('<p>Hola</p><!-- sin cerrar <p>nada</p>') == 'Hola')
+check('script en mayúsculas también se quita',
+      'malo' not in D.visible_text('<p>a</p><SCRIPT type=x>malo()</SCRIPT ><p>b</p>'))
+
 # ── La documentación pasa su propio checker ─────────────────────────────────
 for doc in ('README.md', 'SKILL.md'):
     ruta = os.path.join(RAIZ, doc)

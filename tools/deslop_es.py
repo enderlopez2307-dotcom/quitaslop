@@ -213,10 +213,37 @@ def normaliza(t):
     return re.sub(r'\s+', ' ', t).strip()
 
 
+def _quita_entre(t, apertura, cierre):
+    """Quita cada bloque desde `apertura` hasta `cierre`, en tiempo lineal.
+
+    Con una regex perezosa (<!--.*?-->), un archivo con miles de aperturas sin cerrar
+    tardaba segundos o minutos: cada apertura volvía a recorrer el resto del texto. Un
+    archivo hecho a propósito podía dejar colgado un CI. Sin cierre, se quita hasta el
+    final, como hace un navegador con un comentario sin cerrar.
+    """
+    low = t.lower()
+    patron = re.compile(apertura)
+    out, i = [], 0
+    while True:
+        m = patron.search(low, i)
+        if not m:
+            out.append(t[i:])
+            break
+        out.append(t[i:m.start()])
+        k = low.find(cierre, m.end())
+        if k < 0:
+            break
+        out.append(' ')
+        fin = low.find('>', k) if cierre.startswith('</') else k + len(cierre) - 1
+        i = len(t) if fin < 0 else fin + 1
+    return ''.join(out)
+
+
 def visible_text(html):
     """Lo que de verdad lee quien visita la página."""
-    t = re.sub(r'<(script|style)\b.*?</\1>', ' ', html, flags=re.S | re.I)
-    t = re.sub(r'<!--.*?-->', ' ', t, flags=re.S)
+    t = _quita_entre(html, r'<script\b', '</script')
+    t = _quita_entre(t, r'<style\b', '</style')
+    t = _quita_entre(t, r'<!--', '-->')
     # Cada bloque es su propia frase: unidos, dos títulos se leerían como una sola.
     t = re.sub(r'</?(?:h[1-6]|p|li|div|br|tr|td|th|section|article|header|footer|button)\b[^>]*>',
                ' . ', t, flags=re.I)
@@ -245,9 +272,9 @@ def markdown_prose(md):
     md = re.sub(r'\A---\n.*?\n---\n', ' ', md, count=1, flags=re.S)
     md = re.sub(r'```.*?```', ' ', md, flags=re.S)
     md = re.sub(r'~~~.*?~~~', ' ', md, flags=re.S)
-    md = re.sub(r'<!--.*?-->', ' ', md, flags=re.S)
+    md = _quita_entre(md, r'<!--', '-->')
     md = re.sub(r'!\[[^\]]*\]\([^)]*\)', ' . ', md)
-    md = re.sub(r'\[([^\]]*)\]\([^)]*\)', r'\1', md)
+    md = re.sub(r'\[([^\]\[\n]{0,500})\]\([^)\s]{0,2000}\)', r'\1', md)
     md = re.sub(r'https?://\S+', ' enlace ', md)
     # Sustitutos, no borrados: quitar el ejemplo a secas soldaría dos trozos de la
     # frase y podría inventar un patrón que nadie escribió.
@@ -395,6 +422,8 @@ def main(argv):
     args = [a for a in args if a != '--allow-proof']
     as_md = '--markdown' in args
     args = [a for a in args if a != '--markdown']
+    if not args:
+        sys.exit(__doc__)
 
     if args[0] == '--text':
         crudo = ' '.join(args[1:])

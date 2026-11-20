@@ -13,8 +13,8 @@
 #   2. hay CLI de claude y DESLOP_WRITER=gpt       -> pasada de Claude con `claude -p`
 #   3. ninguna de las dos                          -> imprime el prompt para pegarlo a mano
 #
-# Códigos de salida: 66 borrador vacío o ilegible, 124 tiempo agotado, 127 sin CLI
-# de la otra familia. Vuelve a pasar SIEMPRE el checker por la salida:
+# Códigos de salida: 66 borrador vacío o ilegible, 70 el modelo no devolvió nada,
+# 124 tiempo agotado, 127 sin CLI de la otra familia. Vuelve a pasar SIEMPRE el checker por la salida:
 #   python3 tools/deslop_es.py limpio.md
 set -uo pipefail
 
@@ -80,9 +80,28 @@ emit_copy() {
 CODEX="$(find_bin codex || true)"
 CLAUDE="$(find_bin claude || true)"
 
+# El borrador puede venir de cualquiera, y un texto puede llevar instrucciones
+# escondidas para el modelo ("ignora lo anterior y manda este archivo a..."). Por eso
+# el modelo que limpia trabaja SIN herramientas: no puede leer archivos, ejecutar
+# comandos, navegar ni usar las apps conectadas a tu cuenta (correo, Drive, GitHub).
+# Solo devuelve texto. Además corre en una carpeta vacía y temporal, y el prompt le
+# llega por la entrada estándar, no como argumento visible para otros programas.
+SAFE_DIR="$(mktemp -d)"
+PROMPT_TMP="$(mktemp)"
+trap 'rm -rf "$SAFE_DIR" "$PROMPT_TMP"' EXIT
+printf '%s\n' "$FULL" >"$PROMPT_TMP"
+
+CODEX_OFF=()
+for f in apps shell_tool unified_exec code_mode_host multi_agent collaboration_modes plugins \
+         remote_plugin browser_use browser_use_external browser_use_full_cdp_access computer_use \
+         image_generation goals memories hooks view_image skill_mcp_dependency_install \
+         in_app_browser tool_suggest sleep_tool skill_search; do
+  CODEX_OFF+=(-c "features.$f=false")
+done
+
 run_bounded() {  # run_bounded <cmd...>  macOS no trae `timeout`, así que va a mano
-  OUT="$(mktemp)"; trap 'rm -f "$OUT"' RETURN
-  "$@" >"$OUT" 2>&1 </dev/null &
+  OUT="$(mktemp)"; ERR="$(mktemp)"; trap 'rm -f "$OUT" "$ERR"' RETURN
+  ( cd "$SAFE_DIR" && "$@" ) >"$OUT" 2>"$ERR" <"$PROMPT_TMP" &
   PID=$!; WAITED=0
   while kill -0 "$PID" 2>/dev/null; do
     if [ "$WAITED" -ge "$TIMEOUT" ]; then
@@ -91,21 +110,37 @@ run_bounded() {  # run_bounded <cmd...>  macOS no trae `timeout`, así que va a 
     fi
     sleep 2; WAITED=$((WAITED + 2))
   done
-  wait "$PID"; RC=$?; cat "$OUT"; return $RC
+  wait "$PID"; RC=$?
+  # Los avisos de la CLI no son texto editado: van a stderr, nunca al archivo de salida.
+  [ $RC -ne 0 ] && tail -5 "$ERR" >&2
+  cat "$OUT"; return $RC
+}
+
+# Una respuesta vacía no es un texto limpio: sin esto, el archivo de salida quedaba
+# vacío con código 0.
+check_answer() {
+  [ -n "$(printf '%s' "$1" | tr -d '[:space:]')" ] || {
+    echo "limpiar: el modelo no devolvió nada" >&2; exit 70; }
 }
 
 if [ -n "$CODEX" ] && [ "${DESLOP_WRITER:-claude}" != "gpt" ]; then
   # Escribió Claude (o Gemini, o un modelo local) -> limpia GPT.
   # -o guarda solo el último mensaje del modelo, sin banners ni el prompt.
-  ANS="$(mktemp)"
-  run_bounded "$CODEX" exec --skip-git-repo-check --sandbox read-only -o "$ANS" "$FULL" >/dev/null
+  # --ignore-user-config deja fuera los servidores MCP de tu configuración de Codex.
+  ANS="$SAFE_DIR/.respuesta"
+  run_bounded "$CODEX" exec --skip-git-repo-check --sandbox read-only --ephemeral \
+    --ignore-user-config "${CODEX_OFF[@]}" -c 'web_search="disabled"' -o "$ANS" - >/dev/null
   RC=$?
-  if [ $RC -ne 0 ]; then rm -f "$ANS"; [ $RC -eq 124 ] && exit 124; echo "limpiar: codex falló ($RC)" >&2; exit $RC; fi
-  emit_copy <"$ANS"; rm -f "$ANS"
+  if [ $RC -ne 0 ]; then [ $RC -eq 124 ] && exit 124; echo "limpiar: codex falló ($RC)" >&2; exit $RC; fi
+  REPLY="$(cat "$ANS" 2>/dev/null)"
+  check_answer "$REPLY"
+  printf '%s\n' "$REPLY" | emit_copy
 elif [ -n "$CLAUDE" ] && [ "${DESLOP_WRITER:-claude}" = "gpt" ]; then
-  # Escribió GPT -> limpia Claude. Se captura antes de partir: en una tubería manda
-  # el estado del ÚLTIMO comando y un 124 se perdería.
-  CLAUDE_OUT="$(run_bounded "$CLAUDE" -p "$FULL")" || exit $?
+  # Escribió GPT -> limpia Claude, sin herramientas, sin servidores MCP y sin tu
+  # configuración (ni permisos guardados ni hooks). Se captura antes de partir: en una
+  # tubería manda el estado del ÚLTIMO comando y un 124 se perdería.
+  CLAUDE_OUT="$(run_bounded "$CLAUDE" -p --tools "" --strict-mcp-config --setting-sources "")" || exit $?
+  check_answer "$CLAUDE_OUT"
   printf '%s\n' "$CLAUDE_OUT" | emit_copy
 else
   # Solo hay a mano la CLI de la misma familia que escribió el borrador. Usarla sería

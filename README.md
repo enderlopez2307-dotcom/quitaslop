@@ -74,8 +74,16 @@ El script escribe el texto editado en la salida estándar y las notas de cambios
 salida de error. En Mac también encuentra la CLI que trae la app de Codex.
 
 Si falta la CLI de la otra familia, el script imprime el prompt con el borrador y sale
-con código 127: pégalo en el chat de la otra familia. Un tiempo agotado sale con 124 y un
-borrador vacío o ilegible con 66. Mira el código antes de dar por bueno el archivo.
+con código 127: pégalo en el chat de la otra familia. Un tiempo agotado sale con 124, un
+borrador vacío o ilegible con 66 y una respuesta vacía del modelo con 70. Mira el código
+antes de dar por bueno el archivo.
+
+El modelo de la segunda pasada trabaja sin herramientas: no puede leer tus archivos,
+ejecutar comandos, navegar ni usar las apps conectadas a tu cuenta, como el correo o
+Drive. Corre en una carpeta vacía y recibe el borrador por la entrada estándar. Así, un
+texto con instrucciones escondidas para la IA (por ejemplo, uno que te mandan para
+"revisar") no puede hacer que el modelo saque datos de tu equipo. Las pruebas comprueban
+que esas protecciones siguen en el script.
 
 Otro modelo da otra pasada de edición. Eso no garantiza un texto mejor. En los tres
 ejemplos de [examples/](examples/) la segunda pasada borró una etiqueta que el autor usa en
